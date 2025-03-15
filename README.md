@@ -26,7 +26,7 @@ docker build -t web-service:latest .
 ### Running a Docker Image
 
 ```sh
-docker run -p 80:80 web-service:latest
+docker run -p 8080:8080 web-service:latest
 ```
 
 ### With Docker-Compose
