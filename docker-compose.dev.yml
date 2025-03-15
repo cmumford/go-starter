@@ -1,0 +1,13 @@
+services:
+  web-service:
+    image: web-service
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    develop:
+      watch:
+        - action: rebuild
+          path: ./
+          target: /usr/src/app
+    ports:
+      - 8080:8080

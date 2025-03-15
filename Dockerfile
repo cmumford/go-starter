@@ -2,7 +2,7 @@
 FROM golang:1.24.1 AS builder
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /usr/src/app
 
 # Copy the Go module files and download dependencies
 COPY go.mod ./
@@ -21,7 +21,7 @@ FROM alpine:latest
 WORKDIR /root/
 
 # Copy the binary from the builder stage
-COPY --from=builder /app/web-service .
+COPY --from=builder /usr/src/app/web-service .
 
 # Expose port 8080
 EXPOSE 8080
