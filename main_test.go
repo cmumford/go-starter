@@ -32,19 +32,19 @@ func TestRootHandler_ReturnsStatusOK(t *testing.T) {
 
 func TestRootHandler_ContentType_IsJSON(t *testing.T) {
 	req, err := http.NewRequest("GET", "/", nil)
-	assert.NoError(t, err, "Failed to create request")
+	assert.NoError(t, err)
 	rr := httptest.NewRecorder()
 	api.RootHandler(rr, req)
-	assert.Equal(t, http.StatusOK, rr.Code, "handler returned wrong status code")
+	assert.Equal(t, http.StatusOK, rr.Code)
 	assert.Equal(t, "application/json", rr.Header().Get("Content-Type"), "Content-Type should be application/json")
 }
 
 func TestRootHandler_TestMessage_ExpectedPrefix(t *testing.T) {
 	req, err := http.NewRequest("GET", "/", nil)
-	assert.NoError(t, err, "Failed to create request")
+	assert.NoError(t, err)
 	rr := httptest.NewRecorder()
 	api.RootHandler(rr, req)
-	assert.Equal(t, http.StatusOK, rr.Code, "handler returned wrong status code")
+	assert.Equal(t, http.StatusOK, rr.Code)
 	var resp api.Response
 	err = json.NewDecoder(rr.Body).Decode(&resp)
 	assert.NoError(t, err, "Failed to decode JSON")
@@ -53,10 +53,10 @@ func TestRootHandler_TestMessage_ExpectedPrefix(t *testing.T) {
 
 func TestRootHandler_TestTimestamp_ExpectRecentTime(t *testing.T) {
 	req, err := http.NewRequest("GET", "/", nil)
-	assert.NoError(t, err, "Failed to create request")
+	assert.NoError(t, err)
 	rr := httptest.NewRecorder()
 	api.RootHandler(rr, req)
-	assert.Equal(t, http.StatusOK, rr.Code, "handler returned wrong status code")
+	assert.Equal(t, http.StatusOK, rr.Code)
 	var resp api.Response
 	err = json.NewDecoder(rr.Body).Decode(&resp)
 	assert.NoError(t, err, "Failed to decode JSON")
@@ -69,10 +69,10 @@ func TestRootHandler_TestCommitID_UsesEnvVar(t *testing.T) {
 	os.Setenv("GIT_COMMIT_ID", "1234567890abcdef")
 
 	req, err := http.NewRequest("GET", "/", nil)
-	assert.NoError(t, err, "Failed to create request")
+	assert.NoError(t, err)
 	rr := httptest.NewRecorder()
 	api.RootHandler(rr, req)
-	assert.Equal(t, http.StatusOK, rr.Code, "handler returned wrong status code")
+	assert.Equal(t, http.StatusOK, rr.Code)
 	var resp api.Response
 	err = json.NewDecoder(rr.Body).Decode(&resp)
 	assert.NoError(t, err, "Failed to decode JSON")
