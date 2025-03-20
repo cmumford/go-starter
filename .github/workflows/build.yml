@@ -34,7 +34,14 @@ jobs:
 
       - name: Build ${{ env.TEST_TAG }} for testing
         run: |
-          docker build -t ${{ env.TEST_TAG }} .
+          docker build -t ${{ env.TEST_TAG }} --build-arg GIT_SHA1=${{ github.sha }} .
+
+      - name: Run ${{ env.TEST_TAG }} for testing
+        run: |
+          docker run -p 80:8080 --rm --detach ${{ env.TEST_TAG }}
+
+      - name: run external tests
+        uses: liatrio/github-actions/apprentice-action@v1.0.0
 
   push:
     runs-on: ubuntu-latest
