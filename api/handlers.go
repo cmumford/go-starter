@@ -8,12 +8,13 @@ import (
 	"time"
 )
 
+type Response struct {
+	Message   string `json:"message"`
+	Timestamp int64  `json:"timestamp"`
+	CommitID  string `json:"git-commit-id"`
+}
+
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-	type Response struct {
-		Message   string `json:"message"`
-		Timestamp int64  `json:"timestamp"`
-		CommitID  string `json:"git-commit-id"`
-	}
 
 	response := Response{
 		Message:   "My name is timestamper",

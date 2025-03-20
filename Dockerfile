@@ -8,7 +8,7 @@ ENV GIT_COMMIT_ID=$GIT_SHA1
 WORKDIR /usr/src/app
 
 # Copy the Go module files and download dependencies
-COPY go.mod ./
+COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the source code
