@@ -15,16 +15,13 @@ type Response struct {
 }
 
 func RootHandler(w http.ResponseWriter, r *http.Request) {
-
 	response := Response{
 		Message:   "My name is timestamper",
 		Timestamp: time.Now().UnixMilli(),
 		CommitID:  os.Getenv("GIT_COMMIT_ID"),
 	}
-
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-
 	if err := json.NewEncoder(w).Encode(response); err != nil {
 		http.Error(w, "Failed to encode JSON", http.StatusInternalServerError)
 		return
