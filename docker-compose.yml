@@ -12,4 +12,4 @@ services:
     environment:
       - GIT_COMMIT_ID=dev
     ports:
-      - 8080:8080
+      - 80:8080
