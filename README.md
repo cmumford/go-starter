@@ -37,8 +37,14 @@ docker-compose up --build --watch
 
 ## Misc. Docker Stuff
 
+Delete all containers
 ```sh
 docker rm -f $(docker ps -a -q)
+```
+
+Delete all images
+```sh
+docker rmi -f $(docker images -aq)
 ```
 
 Tagging local image

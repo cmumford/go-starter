@@ -9,5 +9,7 @@ services:
         - action: rebuild
           path: ./
           target: /usr/src/app
+    environment:
+      - GIT_COMMIT_ID=dev
     ports:
       - 8080:8080

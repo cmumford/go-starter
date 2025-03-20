@@ -1,6 +1,9 @@
 # Stage 1: Build the Go binary
 FROM golang:1.24.1 AS builder
 
+ARG GIT_SHA1=prod
+ENV GIT_COMMIT_ID=$GIT_SHA1
+
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
