@@ -18,6 +18,7 @@
 **/obj
 **/secrets.dev.yaml
 **/values.dev.yaml
+**/*_test.go
 LICENSE
 README.md
 Makefile
