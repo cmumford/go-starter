@@ -11,8 +11,19 @@ env:
   TEST_TAG: go-starter:test
 
 jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: go test ./... -v
+
   build-and-test:
     runs-on: ubuntu-latest
+    needs: unit-tests
 
     steps:
       - name: Checkout code
