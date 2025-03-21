@@ -8,10 +8,35 @@ import (
 	"strings"
 	"testing"
 	"time"
+	"unicode"
 
 	"github.com/cmumford/go-starter.git/api"
 	"github.com/stretchr/testify/assert"
 )
+
+func removeTrailingWhitespaceBytes(b []byte) []byte {
+	if len(b) == 0 {
+		return b
+	}
+	i := len(b) - 1
+	for i >= 0 && unicode.IsSpace(rune(b[i])) {
+		i--
+	}
+	return b[:i+1]
+}
+
+func isMinimizedJSON(jsonStr []byte) bool {
+	input := removeTrailingWhitespaceBytes(jsonStr)
+	var temp interface{}
+	if err := json.Unmarshal([]byte(input), &temp); err != nil {
+		return false
+	}
+	unmarshalledStr, err := json.Marshal(temp)
+	if err != nil {
+		return false
+	}
+	return len(unmarshalledStr) == len(input)
+}
 
 func TestHealthHandler_ReturnsOK(t *testing.T) {
 	req, err := http.NewRequest("GET", "/health", nil)
@@ -77,4 +102,13 @@ func TestRootHandler_TestCommitID_UsesEnvVar(t *testing.T) {
 	err = json.NewDecoder(rr.Body).Decode(&resp)
 	assert.NoError(t, err, "Failed to decode JSON")
 	assert.Equal(t, resp.CommitID, "1234567890abcdef")
+}
+
+func TestRootHandler_AnalyzeJSON_IsMinimized(t *testing.T) {
+	req, err := http.NewRequest("GET", "/", nil)
+	assert.NoError(t, err)
+	rr := httptest.NewRecorder()
+	api.RootHandler(rr, req)
+	assert.Equal(t, http.StatusOK, rr.Code)
+	assert.True(t, isMinimizedJSON(rr.Body.Bytes()), "Message should be minimized")
 }
