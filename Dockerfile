@@ -1,9 +1,6 @@
 # Stage 1: Build the Go binary
 FROM golang:1.24.1 AS builder
 
-ARG GIT_SHA1=prod
-ENV GIT_COMMIT_ID=$GIT_SHA1
-
 # Set the working directory inside the container
 WORKDIR /usr/src/app
 
@@ -19,6 +16,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o go-starter
 
 # Stage 2: Create a minimal runtime image
 FROM alpine:latest
+
+ARG GIT_SHA1=prod
+ENV GIT_COMMIT_ID=$GIT_SHA1
 
 # Set the working directory
 WORKDIR /root/
