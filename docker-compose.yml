@@ -1,6 +1,6 @@
 services:
-  web-service:
-    image: web-service
+  go-starter:
+    image: go-starter
     build:
       context: .
       dockerfile: ./Dockerfile

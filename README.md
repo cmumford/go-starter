@@ -20,13 +20,13 @@ make prod
 ### Building a Docker Image
 
 ```sh
-docker build -t web-service:latest .
+docker build -t go-starter:latest .
 ```
 
 ### Running a Docker Image
 
 ```sh
-docker run -p 8080:8080 web-service:latest
+docker run -p 80:8080 go-starter:latest
 ```
 
 ### With Docker-Compose
@@ -50,11 +50,11 @@ docker rmi -f $(docker images -aq)
 Tagging local image
 
 ```sh
-docker tag web-service:latest cmumford/web-service:latest
+docker tag go-starter:latest cmumford/go-starter:latest
 ```
 
 Pushing to a registry (dockerhub)
 
 ```sh
-docker push cmumford/web-service:latest
+docker push cmumford/go-starter:latest
 ```

@@ -15,7 +15,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go app (statically linked binary)
-RUN CGO_ENABLED=0 GOOS=linux go build -o web-service
+RUN CGO_ENABLED=0 GOOS=linux go build -o go-starter
 
 # Stage 2: Create a minimal runtime image
 FROM alpine:latest
@@ -24,10 +24,10 @@ FROM alpine:latest
 WORKDIR /root/
 
 # Copy the binary from the builder stage
-COPY --from=builder /usr/src/app/web-service .
+COPY --from=builder /usr/src/app/go-starter .
 
 # Expose port 8080
 EXPOSE 8080
 
 # Run the binary
-CMD ["./web-service"]
+CMD ["./go-starter"]
